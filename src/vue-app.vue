@@ -3,7 +3,7 @@
     <h1>
       看我如何在 Vue 里使用 echarts
     </h1>
-    <vue-echarts :option="option"></vue-echarts>
+    <vue-echarts :loading="loading" :option="option"></vue-echarts>
     <button @click="loadMore">加载更多</button>
   </div>
 </template>
@@ -15,6 +15,7 @@ export default {
   components: {VueEcharts},
   data() {
     return {
+      loading: false,
       option: {
         title: {
           show: true,
@@ -29,14 +30,14 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: ['2020-1-1','2020-1-2']
+          data: ['2020-1-1', '2020-1-2']
         },
         yAxis: {
           type: 'value'
         },
         series: [{
           name: '金额',
-          data: [1,2],
+          data: [1, 2],
           type: 'line'
         }]
       }
@@ -44,14 +45,18 @@ export default {
   },
   methods: {
     loadMore() {
-      this.option = {
-        xAxis: {
-          data: ['2020-1-1', '2020-1-2', '2020-1-3']
-        },
-        series: [{
-          data: [1, 2, 3]
-        }]
-      };
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+        this.option = {
+          xAxis: {
+            data: ['2020-1-1', '2020-1-2', '2020-1-3']
+          },
+          series: [{
+            data: [1, 2, 3]
+          }]
+        };
+      }, 3000);
     }
   }
 };

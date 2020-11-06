@@ -7,7 +7,7 @@
 import echarts from 'echarts'
 
 export default {
-  props: ['option'],
+  props: ['option', 'loading'],
   mounted() {
     console.log(this.$refs.container)
     const width = document.documentElement.clientWidth
@@ -19,6 +19,13 @@ export default {
   watch: {
     option() {
       this.chart.setOption(this.option)
+    },
+    loading() {
+      if (this.loading) {
+        this.chart.showLoading()
+      } else {
+        this.chart.hideLoading()
+      }
     }
   }
 }
